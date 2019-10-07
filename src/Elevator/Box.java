@@ -21,13 +21,11 @@ public class Box {
         vBox.setStyle(
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
-                "-fx-border-radius: 5;" +
                 "-fx-border-color: black;");
         this.width = width;
         this.height = height;
         this.title = new Label(title);
-        //this.title.setTextAlignment(TextAlignment.CENTER);
-        //this.title.setAlignment(Pos.CENTER);
+        this.title.setTextAlignment(TextAlignment.CENTER);
         vBox.getChildren().add(this.title);
     }
 
