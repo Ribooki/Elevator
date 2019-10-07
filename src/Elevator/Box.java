@@ -1,7 +1,10 @@
 package Elevator;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
+
 
 public class Box {
     protected VBox vBox;
@@ -23,6 +26,8 @@ public class Box {
         this.width = width;
         this.height = height;
         this.title = new Label(title);
+        //this.title.setTextAlignment(TextAlignment.CENTER);
+        //this.title.setAlignment(Pos.CENTER);
         vBox.getChildren().add(this.title);
     }
 

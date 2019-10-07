@@ -11,6 +11,7 @@ public class CanvasBox extends Box {
     private double midX;
     private double midY;
     private double minDistance;
+    private double floor;
 
     public CanvasBox(String title, double width, double height, double x, double y) {
         super(title, width, height, x, y);
@@ -32,19 +33,32 @@ public class CanvasBox extends Box {
     }
 
 
-    public void drawLineElevator(){
+    private void drawLineElevator(){
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.BLACK);
         gc.fillRect(midX-1,0, 2, canvasHeight);
     }
 
-    public void drawElevator(double floor){
+    private void drawElevator(double floor){
+        this.floor = floor;
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.RED);
         double side = minDistance/10;
         gc.fillRect(midX-side,(canvasHeight/MainInterface.maxFloor *(MainInterface.maxFloor - floor))-side, side*2, side*2);
         gc.strokeText(String.valueOf(floor), midX-side, (canvasHeight/MainInterface.maxFloor *(MainInterface.maxFloor - floor)));
         gc.setFill(Color.BLACK);
+    }
+
+    private void resetElevator(){
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        double side = minDistance/10;
+        gc.fillRect(midX-side,(canvasHeight/MainInterface.maxFloor *(MainInterface.maxFloor - this.floor))-side, side*2, side*2);
+    }
+
+    public void drawElevatorInterface(double floor){
+        resetElevator();
+        drawLineElevator();
+        drawElevator(floor);
     }
 
     public void drawDisplay(){

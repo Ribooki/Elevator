@@ -12,16 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Buttons {
+    //si change en main informer le chieur
     public Buttons(){
 
     }
 
-    public List<Button> setFloorsButtons(int floorsCount){
+    public List<Button> setFloorButtons(int floorsCount){
         List<Button> floorsButtons = new ArrayList<Button>();
-        for(int i = 0; i<floorsCount; i++){
-            String title = "floor n°"+String.valueOf(i);
-            Button tempButton = new Button(title);
+        for(double i = floorsCount-1; i>=0; i--){
+            Button tempButton = new Button("Up");
+            tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
+            double finalI = i;
+            tempButton.setOnAction((ActionEvent event) -> {
+                //TODO callFrom(i, 1);
+                System.out.println("monter: "+ finalI);
+            });
+            floorsButtons.add(tempButton);
+
+            tempButton = new Button("Down");
+            tempButton.setId(String.valueOf(i));
+            tempButton.setWrapText(true);
+            double finalI1 = i;
+            tempButton.setOnAction((ActionEvent event) -> {
+                //TODO callFrom(i, -1);
+                System.out.println("descendre: "+ finalI1);
+            });
             floorsButtons.add(tempButton);
         }
         return floorsButtons;
@@ -30,7 +46,7 @@ public class Buttons {
     public List<Button> setTestButtons(){
         List<Button> testButtons = new ArrayList<Button>();
 
-        Button tempButton = new Button("Monter");
+        Button tempButton = new Button("Up");
         tempButton.setOnAction((ActionEvent event) -> {
             System.out.println("L'ascenseur monte");
         });
@@ -39,6 +55,7 @@ public class Buttons {
         tempButton = new Button("Decendre");
         tempButton.setOnAction((ActionEvent event) -> {
             System.out.println("L'ascenseur descend");
+
         });
         testButtons.add(tempButton);
 

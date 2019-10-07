@@ -34,7 +34,7 @@ public class App extends Application {
 
         AnchorPane root2 = new AnchorPane();
         testStage = new Stage();
-        testStage.setTitle("Test");
+        testStage.setTitle("Test panel");
         testStage.setWidth(500);
         testStage.setHeight(300);
 
