@@ -21,6 +21,7 @@ public class Elevator {
 
     public void setState(int state) {
         this.state = state;
+        //TODO: call updateElevatorState
     }
 
     public void nextFloor(){
