@@ -25,8 +25,8 @@ public class Buttons {
             tempButton.setWrapText(true);
             double finalI = i;
             tempButton.setOnAction((ActionEvent event) -> {
-                //TODO callFrom(i, 1);
                 System.out.println("monter: "+ finalI);
+                BasicProtocol.callFrom(finalI, 1);
             });
             floorsButtons.add(tempButton);
 
@@ -35,8 +35,8 @@ public class Buttons {
             tempButton.setWrapText(true);
             double finalI1 = i;
             tempButton.setOnAction((ActionEvent event) -> {
-                //TODO callFrom(i, -1);
                 System.out.println("descendre: "+ finalI1);
+                BasicProtocol.callFrom(finalI1, -1);
             });
             floorsButtons.add(tempButton);
         }
@@ -48,31 +48,33 @@ public class Buttons {
 
         Button tempButton = new Button("Up");
         tempButton.setOnAction((ActionEvent event) -> {
-            System.out.println("L'ascenseur monte");
+            BasicProtocol.testAscend();
         });
         testButtons.add(tempButton);
 
         tempButton = new Button("Decendre");
         tempButton.setOnAction((ActionEvent event) -> {
-            System.out.println("L'ascenseur descend");
+            BasicProtocol.testGoDown();
 
         });
         testButtons.add(tempButton);
 
         tempButton = new Button("Arreter au prochain");
         tempButton.setOnAction((ActionEvent event) -> {
-            System.out.println("L'ascenseur s'arrete au prochain étage");
+            BasicProtocol.stopNextFloor();
+            System.out.println("L'ascenseur s'arretera au prochain étage");
         });
         testButtons.add(tempButton);
 
         tempButton = new Button("Arreter d'urgence");
         tempButton.setOnAction((ActionEvent event) -> {
-            System.out.println("L'ascenseur s'arrete en urgence");
+            BasicProtocol.emergencyStop();
         });
         testButtons.add(tempButton);
 
         tempButton = new Button("Switch mode");
         tempButton.setOnAction((ActionEvent event) -> {
+            //TODO je pense qu'on va le faire dqns le main à l'initialisation uniquement
             System.out.println("L'ascenseur switch de mode entre FIFO, Round robin...");
         });
         testButtons.add(tempButton);

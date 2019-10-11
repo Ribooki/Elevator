@@ -1,9 +1,9 @@
 package Elevator;
 
 public class Elevator {
-    private int actualFloor;
+    private double actualFloor;
     private int maxFloor;
-    private int state; // 0-stop, 1-ascend, -1-go down
+    private int state; // 0-stop, 1-ascend, -1-go down, 2-emergencyStop TODO: ajouter la prise en compte du 2 dans update state
 
     public Elevator(int maxFloor) {
         this.actualFloor = 0;
@@ -11,7 +11,7 @@ public class Elevator {
         this.state = 0;
     }
 
-    public int getActualFloor() {
+    public double getActualFloor() {
         return actualFloor;
     }
 
@@ -19,16 +19,22 @@ public class Elevator {
         return state;
     }
 
+    public int getMaxFloor() {
+        return maxFloor;
+    }
+
     public void setState(int state) {
         this.state = state;
-        //TODO: call updateElevatorState
+        MainInterface.updateElevatorState(state);
     }
 
-    public void nextFloor(){
-        actualFloor++;
+    public void nextStep(){
+        actualFloor = actualFloor + 0.1;
+        actualFloor = Math.round(actualFloor*10)/10.0;
     }
 
-    public void previousFloor(){
-        actualFloor--;
+    public void previousStep(){
+        actualFloor = actualFloor - 0.1;
+        actualFloor = Math.round(actualFloor*10)/10.0;
     }
 }

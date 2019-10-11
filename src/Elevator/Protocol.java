@@ -2,7 +2,7 @@ package Elevator;
 
 import java.util.LinkedList;
 
-public abstract class Protocol{
+public abstract class Protocol {
     private Elevator elevator;
     private LinkedList<Double> waitingCalls = new LinkedList<>();
 
@@ -14,15 +14,15 @@ public abstract class Protocol{
         return waitingCalls;
     }
 
-    public void callFrom(double floor, int direction){
-        this.waitingCalls.add(direction*floor);
+    public void callFrom(double floor, int direction) {
+        this.waitingCalls.add(direction * floor);
     }
 
-    public void stopNextFloor(){
+    public void stopNextFloor() {
 
     }
 
-    public void stopUrgence(){
+    public void stopUrgence() {
 
     }
 

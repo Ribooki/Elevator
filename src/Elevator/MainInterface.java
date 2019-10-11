@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainInterface {
-    private List<Box> boxs;
-    static int maxFloor;
+    private static List<Box> boxs; //TODO "boxes" non ?
+    static int maxFloor; //TODO private et getter
     public MainInterface(Stage stage){
-        MainInterface.maxFloor = 100;
+        MainInterface.maxFloor = 10;
         boxs = new ArrayList<Box>();
         boxs.add(new CanvasBox("Elevator",stage.getWidth()/4,stage.getHeight(), 0 ,0));
         boxs.add(new Box("In elevator",stage.getWidth()/4,stage.getHeight(), stage.getWidth()/4*1, 0));
@@ -20,11 +20,11 @@ public class MainInterface {
         ((ButtonsBox)boxs.get(3)).setFloorButtons();
     }
 
-    public void updateElevatorFloor(double floor){
+    public static void updateElevatorFloor(double floor){
         ((CanvasBox) boxs.get(0)).drawElevatorInterface(floor);
     }
 
-    public void updateElevatorState(int state){((CanvasBox) boxs.get(0)).drawElevatorInterface(state);};
+    public static void updateElevatorState(int state){((CanvasBox) boxs.get(0)).drawElevatorInterface(state);};
 
 
 
