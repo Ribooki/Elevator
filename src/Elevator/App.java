@@ -23,8 +23,8 @@ public class App extends Application {
 
         MainInterface mainInterface = new MainInterface(primaryStage);
         List<VBox> vBoxs = new ArrayList<VBox>();
-        for(int i=0; i<mainInterface.getBoxs().size(); i++){
-            vBoxs.add(mainInterface.getBoxs().get(i).vBox);
+        for(int i=0; i<mainInterface.getBoxes().size(); i++){
+            vBoxs.add(mainInterface.getBoxes().get(i).vBox);
         }
 
         root.getChildren().addAll(vBoxs);
