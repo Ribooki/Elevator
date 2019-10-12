@@ -1,13 +1,15 @@
 package Elevator;
 
-public class BasicProtocol extends Thread{
+import java.util.LinkedList;
+
+public class FIFOprotocol extends Thread{
     private volatile static Elevator elevator = new Elevator(10);
-    private volatile static double[] waitingCalls = new double[elevator.getMaxFloor()];
+    private volatile static LinkedList<Double> waitingCalls = new LinkedList<Double>();
 
     public static void callFrom(double floor, int direction) {
         synchronized (waitingCalls) {
-            if (waitingCalls[(int) floor] == 0) {
-                waitingCalls[(int) floor] = direction;
+            if (!waitingCalls.contains(floor)) {
+                waitingCalls.add(floor);
             } else {
                 System.out.println("Un appel depuis cet étage est dégà enregistré.");
             }
@@ -16,9 +18,7 @@ public class BasicProtocol extends Thread{
 
     private static void clearWaitingCalls(){
         synchronized (waitingCalls) {
-            for (int i = 0; i < elevator.getMaxFloor(); i++) {
-                waitingCalls[i] = 0;
-            }
+            waitingCalls.clear();
         }
     }
 
@@ -69,74 +69,32 @@ public class BasicProtocol extends Thread{
         System.out.println("L'ascenseur s'arrête");
     }
 
-    public void stopThisFloor(){
-        if((elevator.getActualFloor() % 1) == 0){
-            int k = (int) elevator.getActualFloor();
-            if(elevator.getState() != 2){
-                synchronized (waitingCalls) {
-                    if (elevator.getState() != 0 && waitingCalls[k] == elevator.getState()) {
-                        waitingCalls[k] = 0;
-                        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean isLowerStop(){
-        synchronized (waitingCalls) {
-            for (int i = (int) elevator.getActualFloor(); i >= 0; i--) {
-                if (waitingCalls[i] != 0)
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isUpperStop(){
-        synchronized (waitingCalls) {
-            for (int i = (int) elevator.getActualFloor()+1; i < elevator.getMaxFloor(); i++) {
-                if (waitingCalls[i] != 0)
-                    return true;
-            }
-        }
-        return false;
-    }
-
     private void updateDirection(){
-        switch (elevator.getState()){
-            case -1:
-                if(!isLowerStop()){
-                    if(isUpperStop())
-                        ascend();
-                    else
-                        stopElevator();
+        if(elevator.getState() != 2 && elevator.getState() != 0){
+            if(waitingCalls.getFirst() > elevator.getActualFloor()){
+                ascend();
+            }
+            else if(waitingCalls.getFirst() < elevator.getActualFloor()){
+                goDown();
+            }
+        }
+    }
+
+    private void update(){
+        synchronized (waitingCalls) {
+            if (!waitingCalls.isEmpty() && elevator.getActualFloor() == waitingCalls.getFirst()) {
+                waitingCalls.removeFirst();
+                System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                break;
-            case 0:
-                if(isUpperStop())
-                    ascend();
-                else if(isLowerStop())
-                    goDown();
-                break;
-            case 1:
-                if(!isUpperStop()){
-                    if(isLowerStop())
-                        goDown();
-                    else
-                        stopElevator();
+                if(waitingCalls.isEmpty()){
+                    stopElevator();
                 }
-                break;
-            case 2:
-                //Do nothing when emergency stop
-                break;
-            default:
-                break;
+            }
+            updateDirection();
         }
     }
 
@@ -145,8 +103,7 @@ public class BasicProtocol extends Thread{
             clearWaitingCalls();
         }
         while (true) {
-            stopThisFloor();
-            updateDirection();
+            update();
             switch (elevator.getState()) {
                 case -1:
                     elevator.previousStep();
@@ -173,8 +130,6 @@ public class BasicProtocol extends Thread{
                 default:
                     break;
             }
-            stopThisFloor();
-            updateDirection();
         }
     }
 

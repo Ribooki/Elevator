@@ -13,7 +13,6 @@ public class App extends Application {
     private Scene mainScene;
     private Stage testStage;
     private Scene testScene;
-    public static BasicProtocol controller;
     @Override
     public void start(Stage primaryStage) throws Exception{
         AnchorPane root = new AnchorPane();
@@ -48,8 +47,10 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-        BasicProtocol controller = new BasicProtocol();
-        controller.start();
+        BasicProtocol protocol = new BasicProtocol();
+//        FIFOprotocol protocol = new FIFOprotocol();
+        protocol.start();
+
         launch(args);
     }
 }
