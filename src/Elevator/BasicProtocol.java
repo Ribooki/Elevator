@@ -25,9 +25,9 @@ public class BasicProtocol extends Thread{
     public synchronized static void stopNextFloor() {
         double k = 0;
         if (elevator.getState() == 1)
-            k = (int)elevator.getActualFloor()+1;
+            k = (int)elevator.getActualFloor()+2;
         else if (elevator.getState() == -1)
-            k = (int)elevator.getActualFloor();
+            k = (int)elevator.getActualFloor()-1;
         clearWaitingCalls();
         callFrom(k, elevator.getState());
     }
