@@ -17,13 +17,13 @@ public class ButtonsBox extends Box{
     ScrollPane container;
     public ButtonsBox(String title, double width, double height, double x, double y) {
         super(title, width, height, x, y);
-        buttons = new ArrayList<Button>();
+        buttons = new ArrayList<>();
     }
 
     public void setFloorButtons(){
-        floorNumbers = new ArrayList<Label>();
-        Buttons buttonsCreator = new Buttons();
-        buttons.addAll(buttonsCreator.setFloorButtons(MainInterface.maxFloor));
+        floorNumbers = new ArrayList<>();
+        Buttons buttonsCreator = new ExteriorButtons();
+        buttons.addAll(buttonsCreator.setButtons(MainInterface.maxFloor));
         VBox boxScroll = new VBox();
         for(int i = 0; i<MainInterface.maxFloor; i++){
             String title = "Floor n°"+String.valueOf(MainInterface.maxFloor-(i+1));
@@ -43,14 +43,14 @@ public class ButtonsBox extends Box{
     }
 
     public void setTestButtons(){
-        Buttons buttonsCreator = new Buttons();
-        buttons.addAll(buttonsCreator.setTestButtons());
+        Buttons buttonsCreator = new TestButtons();
+        buttons.addAll(buttonsCreator.setButtons());
         vBox.getChildren().addAll(buttons);
     }
 
     public void setFloorInteriorChoice(){
-        Buttons buttonsCreator = new Buttons();
-        buttons.addAll(buttonsCreator.setFloorInteriorChoice(MainInterface.maxFloor));
+        Buttons buttonsCreator = new InteriorButtons();
+        buttons.addAll(buttonsCreator.setButtons(MainInterface.maxFloor));
         VBox boxScroll = new VBox();
         boxScroll.getChildren().addAll(buttons);
         container = new ScrollPane();
