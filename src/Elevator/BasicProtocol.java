@@ -25,7 +25,7 @@ public class BasicProtocol extends Thread{
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
             } else {
-                System.out.println("Un appel depuis cet étage est dégà enregistré.");
+                System.out.println("Un appel vers l'étage " + floor + "est émis.");
             }
         }
     }
@@ -40,10 +40,14 @@ public class BasicProtocol extends Thread{
 
     public synchronized static void stopNextFloor() {
         double k = 0;
-        if (elevator.getState() == 1)
-            k = (int)elevator.getActualFloor()+2;
-        else if (elevator.getState() == -1)
-            k = (int)elevator.getActualFloor()-1;
+        if (elevator.getState() == 1) {
+            k = (int) elevator.getActualFloor() + 2;
+            elevator.setState(3);
+        }
+        else if (elevator.getState() == -1) {
+            k = (int) elevator.getActualFloor() - 1;
+            elevator.setState(4);
+        }
         clearWaitingCalls();
         callFrom(k, elevator.getState());
     }
@@ -151,6 +155,22 @@ public class BasicProtocol extends Thread{
             case 2:
                 //Do nothing when emergency stop
                 break;
+            case 3:
+                if(!isUpperStop()){
+                    if(isLowerStop())
+                        goDown();
+                    else
+                        stopElevator();
+                }
+                break;
+            case 4:
+                if(!isLowerStop()){
+                    if(isUpperStop())
+                        ascend();
+                    else
+                        stopElevator();
+                }
+                break;
             default:
                 break;
         }
@@ -164,7 +184,7 @@ public class BasicProtocol extends Thread{
             stopThisFloor();
             updateDirection();
             switch (elevator.getState()) {
-                case -1:
+                case -1: //goDown
                     elevator.previousStep();
                     MainInterface.updateElevatorFloor(elevator.getActualFloor());
                     try {
@@ -173,9 +193,9 @@ public class BasicProtocol extends Thread{
                         e.printStackTrace();
                     }
                     break;
-                case 0:
+                case 0: //stop
                     break;
-                case 1:
+                case 1: // goUp
                     elevator.nextStep();
                     MainInterface.updateElevatorFloor(elevator.getActualFloor());
                     try {
@@ -184,7 +204,25 @@ public class BasicProtocol extends Thread{
                         e.printStackTrace();
                     }
                     break;
-                case 2:
+                case 2: // emergencyStop
+                    break;
+                case 3: // upBraking
+                    elevator.nextStep();
+                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 4: // downBraking
+                    elevator.nextStep();
+                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     break;

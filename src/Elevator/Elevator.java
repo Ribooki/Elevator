@@ -3,7 +3,7 @@ package Elevator;
 public class Elevator {
     private double actualFloor;
     private int maxFloor;
-    private int state; // 0-stop, 1-ascend, -1-go down, 2-emergencyStop TODO: ajouter la prise en compte du 2 dans update state
+    private int state; // 0-stop, 1-ascend, -1-go down, 2-emergencyStop, 3-unBraking, 4-downBraking
 
     public Elevator(int maxFloor) {
         this.actualFloor = 0;
