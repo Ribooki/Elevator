@@ -91,7 +91,7 @@ public class CanvasBox extends Box {
         gc.setFill(Color.BLACK);
 
 
-        if(state != 0){
+        if(state == 2 || state == 0){
             gc.setFill(Color.RED);
             gc.fillRect(midX-dispWidth/2, midY-dispHeight/2, dispWidth, dispHeight);
             gc.setFill(Color.BLACK);

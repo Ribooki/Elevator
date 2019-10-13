@@ -48,22 +48,11 @@ public class ButtonsBox extends Box{
         vBox.getChildren().addAll(buttons);
     }
 
-    public void setFloorNumbers(){
-        floorNumbers = new ArrayList<Label>();
+    public void setFloorInteriorChoice(){
         Buttons buttonsCreator = new Buttons();
-        buttons.addAll(buttonsCreator.setFloorButtons(MainInterface.maxFloor));
+        buttons.addAll(buttonsCreator.setFloorInteriorChoice(MainInterface.maxFloor));
         VBox boxScroll = new VBox();
-        for(int i = 0; i<MainInterface.maxFloor; i++){
-            String title = "Floor n°"+String.valueOf(MainInterface.maxFloor-(i+1));
-            Label tempLabel = new Label(title);
-            tempLabel.setWrapText(true);
-            HBox box = new HBox();
-            tempLabel.setLabelFor(box);
-            box.getChildren().addAll(buttons.get(i*2), buttons.get(i*2+1));
-            tempLabel.setLabelFor(box);
-            floorNumbers.add(tempLabel);
-            boxScroll.getChildren().addAll(tempLabel, box);
-        }
+        boxScroll.getChildren().addAll(buttons);
         container = new ScrollPane();
         container.setPannable(true);
         container.setContent(boxScroll);

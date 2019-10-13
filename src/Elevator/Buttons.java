@@ -104,4 +104,25 @@ public class Buttons {
         return testButtons;
     }
 
+    public List<Button> setFloorInteriorChoice(int floorsCount){
+        List<Button> floorsButtons = new ArrayList<Button>();
+        for(double i = floorsCount-1; i>=0; i--){
+            Button tempButton = new Button(String.valueOf(Math.round(i)));
+            tempButton.setId(String.valueOf(i));
+            tempButton.setWrapText(true);
+            double finalI = i;
+            tempButton.setOnAction((ActionEvent event) -> {
+                System.out.println("monter: "+ finalI);
+                if(mode==0)
+                    BasicProtocol.callFromInside(finalI);
+                //else
+                    //FIFOprotocol.callFromInside(finalI, 1);
+            });
+            floorsButtons.add(tempButton);
+
+        }
+        return floorsButtons;
+    }
+
+
 }
