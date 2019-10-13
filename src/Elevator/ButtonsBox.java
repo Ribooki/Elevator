@@ -15,8 +15,8 @@ public class ButtonsBox extends Box{
     List<Button> buttons;
     List<Label> floorNumbers;
     ScrollPane container;
-    public ButtonsBox(String title, double width, double height, double x, double y) {
-        super(title, width, height, x, y);
+    public ButtonsBox(String title) {
+        super(title);
         buttons = new ArrayList<>();
     }
 
@@ -58,4 +58,6 @@ public class ButtonsBox extends Box{
         container.setContent(boxScroll);
         super.vBox.getChildren().add(container);
     }
+
+
 }

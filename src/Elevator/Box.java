@@ -1,6 +1,6 @@
 package Elevator;
 
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
@@ -12,12 +12,12 @@ public class Box {
     protected double height;
     protected Label title;
 
-    public Box(String title, double width, double height, double x, double y){
+    public Box(String title){
         vBox = new VBox();
         vBox.setMaxSize(width, height);
-        vBox.setMinSize(width, height);
-        vBox.setLayoutX(x);
-        vBox.setLayoutY(y);
+        vBox.setMinSize(0, 0);
+        vBox.setSpacing(0);
+        vBox.setPadding(new Insets(0,0, 0,0));
         vBox.setStyle(
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
@@ -27,6 +27,18 @@ public class Box {
         this.title = new Label(title);
         this.title.setTextAlignment(TextAlignment.CENTER);
         vBox.getChildren().add(this.title);
+    }
+
+    public void resize(double width, double height){
+        vBox.setMinSize(width, height);
+    }
+
+    protected void setWidth(double newWidth){
+        width = newWidth;
+    }
+
+    protected void setHeight(double newHeight){
+        height = newHeight;
     }
 
     public VBox getvBox() {

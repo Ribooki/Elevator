@@ -9,8 +9,8 @@ public class CanvasBox extends Box {
     private double canvasHeight;
     private double canvasWidth;
 
-    public CanvasBox(String title, double width, double height, double x, double y, int thingToDraw) {
-        super(title, width, height, x, y);
+    public CanvasBox(String title, int thingToDraw) {
+        super(title);
         canvas = new Canvas(canvasWidth, canvasHeight);
         canvas.getGraphicsContext2D().setFill(Color.WHITE);
         canvas.getGraphicsContext2D().fillRect(2,2,canvasWidth, canvasHeight);
@@ -27,6 +27,16 @@ public class CanvasBox extends Box {
                 break;
         }
         resized();
+        vBox.widthProperty().addListener((arg0, arg1, arg2) -> {
+            setWidth(arg2.doubleValue());
+            resized();
+        });
+
+        vBox.heightProperty().addListener((arg0, arg1, arg2) -> {
+            setHeight(arg2.doubleValue());
+            resized();
+
+        });
     }
 
     public void resized(){

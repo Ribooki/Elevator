@@ -1,7 +1,10 @@
 package Elevator;
 
+import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class DrawElevator extends Drawer{
     double floor;
@@ -19,10 +22,12 @@ public class DrawElevator extends Drawer{
     private void drawElevator(double floor){
         gc.setFill(Color.RED);
         double side = minDistance/10;
-        System.out.println(side);
         gc.fillRect(midX-side,(height/MainInterface.maxFloor *(MainInterface.maxFloor - floor))-side, side*2, side*2);
         gc.setStroke(Color.BLACK);
-        gc.strokeText(String.valueOf(floor), midX-side, (height/MainInterface.maxFloor *(MainInterface.maxFloor - floor)));
+        gc.setFill(Color.BLACK);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(Font.font(side));
+        gc.fillText(String.valueOf(floor), midX, (height/MainInterface.maxFloor *(MainInterface.maxFloor - floor)));
         gc.setFill(Color.BLACK);
     }
 
@@ -38,6 +43,15 @@ public class DrawElevator extends Drawer{
         this.floor = floor;
         drawLineElevator();
         drawElevator(floor);
+    }
+
+    @Override
+    public void resizeDrawer(double width, double height){
+        super.resizeDrawer(width, height);
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0,0,width,height);
+        this.draw(floor);
+
     }
 
 }

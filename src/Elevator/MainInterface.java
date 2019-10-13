@@ -1,5 +1,6 @@
 package Elevator;
 
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -8,18 +9,31 @@ import java.util.List;
 public class MainInterface {
     private static List<Box> boxes;
     static int maxFloor; //TODO Pour le bien de tous laissons le en static, il embete personne
-    public MainInterface(Stage stage){
+    public MainInterface(HBox root){
+
         MainInterface.maxFloor = 10;
         boxes = new ArrayList<Box>();
-        boxes.add(new CanvasBox("Elevator",stage.getWidth()/4,stage.getHeight(), 0 ,0,0));
-        boxes.add(new ButtonsBox("In elevator",stage.getWidth()/4,stage.getHeight(), stage.getWidth()/4*1, 0));
-        boxes.add(new CanvasBox("in and out elevator",stage.getWidth()/4,stage.getHeight(), stage.getWidth()/4*2, 0,1));
-        boxes.add(new ButtonsBox("out of elevator",stage.getWidth()/4,stage.getHeight(), stage.getWidth()/4*3, 0));
+        boxes.add(new CanvasBox("Elevator",0));
+        boxes.add(new ButtonsBox("In elevator"));
+        boxes.add(new CanvasBox("in and out elevator",1));
+        boxes.add(new ButtonsBox("out of elevator"));
         ((CanvasBox) boxes.get(0)).getDrawer().draw(0.0);
         ((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
         ((CanvasBox) boxes.get(2)).getDrawer().draw(0);
         ((ButtonsBox)boxes.get(3)).setFloorButtons();
 
+        resizeBoxes(root.getWidth(), root.getMinHeight());
+        root.widthProperty().addListener((arg0, arg1, arg2) -> {
+            root.setMinWidth(arg2.doubleValue());
+            root.setPrefWidth(arg2.doubleValue());
+            resizeBoxes(arg2.doubleValue(), root.getHeight());
+        });
+
+        root.heightProperty().addListener((arg0, arg1, arg2) -> {
+            root.setMinHeight(arg2.doubleValue());
+            root.setPrefHeight(arg2.doubleValue());
+            resizeBoxes(root.getWidth(), arg2.doubleValue());
+        });
     }
 
     public static void updateElevatorFloor(double floor){
@@ -32,5 +46,12 @@ public class MainInterface {
 
     public List<Box> getBoxes() {
         return boxes;
+    }
+
+    public void resizeBoxes(double width, double height){
+        double widthRatio = width/boxes.size();
+        for(int i=0; i<boxes.size(); i++){
+            boxes.get(i).resize(widthRatio, height);
+        }
     }
 }
