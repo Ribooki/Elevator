@@ -14,6 +14,22 @@ public class BasicProtocol extends Thread{
         }
     }
 
+    public synchronized static void callFromInside(double floor){
+        synchronized (waitingCalls){
+            int direction = 0;
+            if(floor > elevator.getActualFloor())
+                direction = 1;
+            else if(floor < elevator.getActualFloor())
+                direction = -1;
+
+            if (waitingCalls[(int) floor] == 0) {
+                waitingCalls[(int) floor] = direction;
+            } else {
+                System.out.println("Un appel depuis cet étage est dégà enregistré.");
+            }
+        }
+    }
+
     private static void clearWaitingCalls(){
         synchronized (waitingCalls) {
             for (int i = 0; i < elevator.getMaxFloor(); i++) {
