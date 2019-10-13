@@ -1,7 +1,6 @@
 package Elevator;
 
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;

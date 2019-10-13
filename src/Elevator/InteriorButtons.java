@@ -13,6 +13,7 @@ public class InteriorButtons extends Buttons {
         List<Button> floorsButtons = new ArrayList<Button>();
         for(double i = floorsCount-1; i>=0; i--){
             Button tempButton = new Button(String.valueOf(Math.round(i)));
+            tempButton.setStyle("fx-radius-style: 50px");
             tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
             double finalI = i;

@@ -1,12 +1,12 @@
 package Elevator;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,9 @@ public class ButtonsBox extends Box{
     public ButtonsBox(String title) {
         super(title);
         buttons = new ArrayList<>();
+        container = new ScrollPane();
+        container.setFitToWidth(true);
+        container.setPannable(true);
     }
 
     public void setFloorButtons(){
@@ -53,8 +56,10 @@ public class ButtonsBox extends Box{
         buttons.addAll(buttonsCreator.setButtons(MainInterface.maxFloor));
         VBox boxScroll = new VBox();
         boxScroll.getChildren().addAll(buttons);
-        container = new ScrollPane();
-        container.setPannable(true);
+        boxScroll.setMinWidth(container.getWidth());
+        boxScroll.setFillWidth(true);
+        boxScroll.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        boxScroll.alignmentProperty().set(Pos.CENTER);
         container.setContent(boxScroll);
         super.vBox.getChildren().add(container);
     }

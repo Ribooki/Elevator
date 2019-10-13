@@ -12,7 +12,6 @@ public class DrawState extends Drawer {
     @Override
     public void draw(int state){
         lastState = state;
-        System.out.println(state);
         gc.setFill(Color.BLACK);
         double dispHeight = height/5;
         double dispWidth = width/6;
