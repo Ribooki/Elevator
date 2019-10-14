@@ -2,6 +2,8 @@ package Elevator;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class DrawState extends Drawer {
     private int lastState;
@@ -41,9 +43,16 @@ public class DrawState extends Drawer {
         }else{
             gc.setFill(Color.RED);
             gc.fillRect(midX-dispWidth/2, midY-dispHeight/2, dispWidth, dispHeight);
+            if(state == 2){
+                gc.setStroke(Color.BLACK);
+                gc.setFont(new Font(10));
+                gc.setTextAlign(TextAlignment.CENTER);
+                gc.strokeText("U", midX, midY);
+            }
         }
         gc.setFill(Color.BLACK);
 
+        gc.setStroke(Color.WHITE);
         gc.strokeRect(midX-dispWidth/2, midY-dispHeight/2, dispWidth, dispHeight);
 
     }

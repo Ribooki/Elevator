@@ -21,7 +21,7 @@ public class TestButtons extends Buttons{
         });
         testButtons.add(tempButton);
 
-        tempButton = new Button("Decendre");
+        tempButton = new Button("Down");
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0)
                 BasicProtocol.testGoDown();
@@ -31,7 +31,7 @@ public class TestButtons extends Buttons{
         });
         testButtons.add(tempButton);
 
-        tempButton = new Button("Arreter au prochain");
+        tempButton = new Button("Stop to next floor");
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0)
                 BasicProtocol.stopNextFloor();
@@ -41,7 +41,7 @@ public class TestButtons extends Buttons{
         });
         testButtons.add(tempButton);
 
-        tempButton = new Button("Arreter d'urgence");
+        tempButton = new Button("Urgency stop");
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0)
                 BasicProtocol.emergencyStop();

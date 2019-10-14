@@ -21,6 +21,7 @@ public class ButtonsBox extends Box{
         container = new ScrollPane();
         container.setFitToWidth(true);
         container.setPannable(true);
+        container.setBorder(Border.EMPTY);
     }
 
     public void setFloorButtons(){
@@ -54,17 +55,15 @@ public class ButtonsBox extends Box{
     public void setFloorInteriorChoice(){
         Buttons buttonsCreator = new InteriorButtons();
         buttons.addAll(buttonsCreator.setButtons(MainInterface.maxFloor));
-        //VBox boxScroll = new VBox();
         GridPane boxScroll = new GridPane();
         for(int i=0; i<buttons.size(); i++){
             boxScroll.add(buttons.get(i), i%2, i);
         }
-        //boxScroll.getChildren().addAll(buttons);
         boxScroll.setMinWidth(container.getWidth());
-        //boxScroll.setFillWidth(true);
-        //boxScroll.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        boxScroll.setBorder(Border.EMPTY);
         boxScroll.alignmentProperty().set(Pos.CENTER);
         container.setContent(boxScroll);
+        container.setBackground(Background.EMPTY);
         super.vBox.getChildren().add(container);
     }
 

@@ -1,7 +1,12 @@
 package Elevator;
 
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +16,9 @@ public class ExteriorButtons extends Buttons{
     @Override
     public List<Button> setButtons(int floorsCount){
         List<Button> floorsButtons = new ArrayList<Button>();
+        Button tempButton;
         for(double i = floorsCount-1; i>=0; i--){
-            Button tempButton = new Button("↑");
+            tempButton = new Button("↑");
             tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
             double finalI = i;
