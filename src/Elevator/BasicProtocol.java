@@ -25,7 +25,7 @@ public class BasicProtocol extends Thread{
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
             } else {
-                System.out.println("Un appel vers l'étage " + floor + "est émis.");
+                System.out.println("Un appel vers l'étage " + floor + " est émis.");
             }
         }
     }
@@ -40,12 +40,16 @@ public class BasicProtocol extends Thread{
 
     public synchronized static void stopNextFloor() {
         double k = 0;
-        if (elevator.getState() == 1) {
+        if (elevator.getState() == 1 && elevator.getActualFloor()<(elevator.getMaxFloor()-1)) {
             k = (int) elevator.getActualFloor() + 2;
             elevator.setState(3);
         }
-        else if (elevator.getState() == -1) {
+        else if (elevator.getState() == -1 && elevator.getActualFloor()>1) {
             k = (int) elevator.getActualFloor() - 1;
+            elevator.setState(4);
+        }
+        else {
+            k = (int) elevator.getActualFloor();
             elevator.setState(4);
         }
         clearWaitingCalls();
@@ -55,6 +59,8 @@ public class BasicProtocol extends Thread{
     public synchronized static void emergencyStop() {
         if(elevator.getState() == 2){
             elevator.setState(0);
+            clearWaitingCalls();
+            stopNextFloor();
             System.out.println("L'ascenseur sort de l'arrêt urgence");
         }
         else{
@@ -231,7 +237,7 @@ public class BasicProtocol extends Thread{
                     }
                     break;
                 case 4: // downBraking
-                    elevator.nextStep();
+                    elevator.previousStep();
                     MainInterface.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(400);
