@@ -98,7 +98,7 @@ public class BasicProtocol extends Thread{
     public void stopThisFloor(){
         if((elevator.getActualFloor() % 1) == 0){
             int k = (int) elevator.getActualFloor();
-            if(elevator.getState() != 2){
+            if(elevator.getState() < 2){
                 synchronized (waitingCalls) {
                     if (elevator.getState() != 0 && waitingCalls[k] == elevator.getState()) {
                         stopHere(k);
