@@ -32,10 +32,10 @@ public class App extends Application {
         primaryStage.setX((primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth()-primaryStage.getWidth())/2);
         primaryStage.setY((primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight()-primaryStage.getHeight())/4);
 
-        MainInterface mainInterface = new MainInterface(root);
+        MainWindow mainWindow = new MainWindow(root);
         List<VBox> vBoxs = new ArrayList<VBox>();
-        for(int i=0; i<mainInterface.getBoxes().size(); i++){
-            vBoxs.add(mainInterface.getBoxes().get(i).vBox);
+        for(int i = 0; i< mainWindow.getBoxes().size(); i++){
+            vBoxs.add(mainWindow.getBoxes().get(i).getvBox());
         }
         root.getChildren().addAll(vBoxs);
         primaryStage.show();
@@ -49,8 +49,8 @@ public class App extends Application {
         testStage.setX(primaryScreenBounds.getMinX());
         testStage.setY(primaryScreenBounds.getMinY());
 
-        TestInterface testInterface = new TestInterface(root2);
-        root2.getChildren().add(testInterface.getButtonsBox().vBox);
+        TestWindow testWindow = new TestWindow(root2);
+        root2.getChildren().add(testWindow.getInterfaceBox().getvBox());
 
         testStage.setScene(new Scene(root2, 500,300));
         testStage.show();

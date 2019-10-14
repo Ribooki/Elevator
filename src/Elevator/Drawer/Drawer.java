@@ -1,5 +1,6 @@
-package Elevator;
+package Elevator.Drawer;
 
+import Elevator.Elevator;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Drawer {

@@ -1,17 +1,14 @@
-package Elevator;
+package Elevator.Button;
 
+import Elevator.BasicProtocol;
+import Elevator.FIFOprotocol;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExteriorButtons extends Buttons{
+public class ExteriorButtons extends Buttons {
 
     @Override
     public List<Button> setButtons(int floorsCount){

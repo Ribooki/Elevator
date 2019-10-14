@@ -1,12 +1,12 @@
 package Elevator;
 
+import Elevator.Box.InterfaceBox;
 import javafx.scene.layout.HBox;
 
-public class TestInterface {
-    private ButtonsBox buttonsBox;
-    public TestInterface(HBox root){
-        buttonsBox = new ButtonsBox("Test");
-        buttonsBox.setTestButtons();
+public class TestWindow {
+    private InterfaceBox interfaceBox;
+    public TestWindow(HBox root){
+        interfaceBox = new InterfaceBox("Test", 2);
         resizeBox(root.getWidth(), root.getHeight());
         root.widthProperty().addListener((arg0, arg1, arg2) -> {
             root.setMinWidth(arg2.doubleValue());
@@ -22,10 +22,10 @@ public class TestInterface {
     }
 
     public void resizeBox(double width, double height){
-        buttonsBox.resize(width, height);
+        interfaceBox.resize(width, height);
     }
 
-    public ButtonsBox getButtonsBox() {
-        return buttonsBox;
+    public InterfaceBox getInterfaceBox() {
+        return interfaceBox;
     }
 }

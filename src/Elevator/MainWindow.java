@@ -1,25 +1,28 @@
 package Elevator;
 
+import Elevator.Box.AbstractBox;
+import Elevator.Box.CanvasBox;
+import Elevator.Box.InterfaceBox;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainInterface {
-    private static List<Box> boxes;
-    static int maxFloor; //TODO Pour le bien de tous laissons le en static, il embete personne
-    public MainInterface(HBox root){
+public class MainWindow {
+    private static List<AbstractBox> boxes;
+    public static int maxFloor; //TODO Pour le bien de tous laissons le en static, il embete personne
+    public MainWindow(HBox root){
 
-        MainInterface.maxFloor = 10;
-        boxes = new ArrayList<Box>();
+        MainWindow.maxFloor = 10;
+        boxes = new ArrayList<AbstractBox>();
         boxes.add(new CanvasBox("Elevator",0));
-        boxes.add(new ButtonsBox("In elevator"));
+        boxes.add(new InterfaceBox("In elevator",0));
         boxes.add(new CanvasBox("in and out elevator",1));
-        boxes.add(new ButtonsBox("out of elevator"));
+        boxes.add(new InterfaceBox("out of elevator",1));
         ((CanvasBox) boxes.get(0)).getDrawer().draw(0.0);
-        ((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
+        //((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
         ((CanvasBox) boxes.get(2)).getDrawer().draw(0);
-        ((ButtonsBox)boxes.get(3)).setFloorButtons();
+        //((ButtonsBox)boxes.get(3)).setFloorButtons();
 
         resizeBoxes(root.getWidth(), root.getMinHeight());
         root.widthProperty().addListener((arg0, arg1, arg2) -> {
@@ -37,13 +40,14 @@ public class MainInterface {
 
     public static void updateElevatorFloor(double floor){
         ((CanvasBox) boxes.get(0)).getDrawer().draw(floor);
+        //((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
     }
 
     public static void updateElevatorState(int state){((CanvasBox) boxes.get(2)).getDrawer().draw(state);}
 
 
 
-    public List<Box> getBoxes() {
+    public List<AbstractBox> getBoxes() {
         return boxes;
     }
 

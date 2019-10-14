@@ -225,7 +225,7 @@ public class BasicProtocol extends Thread{
             switch (elevator.getState()) {
                 case -1: //goDown
                     elevator.previousStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
@@ -236,7 +236,7 @@ public class BasicProtocol extends Thread{
                     break;
                 case 1: // goUp
                     elevator.nextStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
@@ -247,7 +247,7 @@ public class BasicProtocol extends Thread{
                     break;
                 case 3: // upBraking
                     elevator.nextStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(400);
                     } catch (InterruptedException e) {
@@ -256,7 +256,7 @@ public class BasicProtocol extends Thread{
                     break;
                 case 4: // downBraking
                     elevator.previousStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(400);
                     } catch (InterruptedException e) {

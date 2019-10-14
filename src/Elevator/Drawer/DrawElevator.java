@@ -1,5 +1,6 @@
-package Elevator;
+package Elevator.Drawer;
 
+import Elevator.MainWindow;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,19 +22,19 @@ public class DrawElevator extends Drawer{
     private void drawElevator(double floor){
         gc.setFill(Color.RED);
         double side = minDistance/10;
-        gc.fillRect(midX-side,(height/MainInterface.maxFloor *(MainInterface.maxFloor - floor))-side, side*2, side*2);
+        gc.fillRect(midX-side,(height/ MainWindow.maxFloor *(MainWindow.maxFloor - floor))-side, side*2, side*2);
         gc.setStroke(Color.BLACK);
         gc.setFill(Color.BLACK);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(Font.font(side));
-        gc.fillText(String.valueOf(floor), midX, (height/MainInterface.maxFloor *(MainInterface.maxFloor - floor)));
+        gc.fillText(String.valueOf(floor), midX, (height/ MainWindow.maxFloor *(MainWindow.maxFloor - floor)));
         gc.setFill(Color.BLACK);
     }
 
     private void resetElevator(){
         double side = minDistance/10;
         gc.setFill(Color.WHITE);
-        gc.fillRect(midX-side-1,(height/MainInterface.maxFloor *(MainInterface.maxFloor - this.floor))-side-1, side*2+2, side*2+2);
+        gc.fillRect(midX-side-1,(height/ MainWindow.maxFloor *(MainWindow.maxFloor - this.floor))-side-1, side*2+2, side*2+2);
     }
 
     @Override

@@ -1,9 +1,13 @@
-package Elevator;
+package Elevator.Box;
 
+import Elevator.Drawer.DrawDefault;
+import Elevator.Drawer.DrawElevator;
+import Elevator.Drawer.DrawState;
+import Elevator.Drawer.Drawer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class CanvasBox extends Box {
+public class CanvasBox extends AbstractBox {
     private Canvas canvas;
     private Drawer drawer;
     private double canvasHeight;

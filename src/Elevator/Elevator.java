@@ -25,7 +25,7 @@ public class Elevator {
 
     public void setState(int state) {
         this.state = state;
-        MainInterface.updateElevatorState(state);
+        MainWindow.updateElevatorState(state);
     }
 
     public void nextStep(){

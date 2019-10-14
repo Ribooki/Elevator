@@ -1,6 +1,7 @@
-package Elevator;
+package Elevator.Button;
 
 
+import Elevator.Elevator;
 import javafx.scene.control.Button;
 import java.util.List;
 
@@ -19,12 +20,5 @@ public abstract class Buttons {
     public List<Button> setButtons(){
         return null;
     }
-
-
-
-
-
-
-
 
 }

@@ -1,12 +1,14 @@
-package Elevator;
+package Elevator.Button;
 
+import Elevator.BasicProtocol;
+import Elevator.FIFOprotocol;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestButtons extends Buttons{
+public class TestButtons extends Buttons {
 
     @Override
     public List<Button> setButtons(){

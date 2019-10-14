@@ -1,18 +1,19 @@
-package Elevator;
+package Elevator.Box;
 
+import Elevator.Elevator;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 
-public class Box {
+public abstract class AbstractBox {
     protected VBox vBox;
     protected double width;
     protected double height;
     protected Label title;
 
-    public Box(String title){
+    public AbstractBox(String title){
         vBox = new VBox();
         vBox.setMaxSize(width, height);
         vBox.setMinSize(0, 0);
@@ -22,8 +23,6 @@ public class Box {
                 "-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
                 "-fx-border-color: black;");
-        this.width = width;
-        this.height = height;
         this.title = new Label(title);
         this.title.setTextAlignment(TextAlignment.CENTER);
         vBox.getChildren().add(this.title);
@@ -40,6 +39,8 @@ public class Box {
     protected void setHeight(double newHeight){
         height = newHeight;
     }
+
+    public void update(){}
 
     public VBox getvBox() {
         return vBox;

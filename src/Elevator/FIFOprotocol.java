@@ -107,7 +107,7 @@ public class FIFOprotocol extends Thread{
             switch (elevator.getState()) {
                 case -1:
                     elevator.previousStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
@@ -118,7 +118,7 @@ public class FIFOprotocol extends Thread{
                     break;
                 case 1:
                     elevator.nextStep();
-                    MainInterface.updateElevatorFloor(elevator.getActualFloor());
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
