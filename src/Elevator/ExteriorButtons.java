@@ -12,7 +12,7 @@ public class ExteriorButtons extends Buttons{
     public List<Button> setButtons(int floorsCount){
         List<Button> floorsButtons = new ArrayList<Button>();
         for(double i = floorsCount-1; i>=0; i--){
-            Button tempButton = new Button("Up");
+            Button tempButton = new Button("↑");
             tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
             double finalI = i;
@@ -25,7 +25,7 @@ public class ExteriorButtons extends Buttons{
             });
             floorsButtons.add(tempButton);
 
-            tempButton = new Button("Down");
+            tempButton = new Button("↓");
             tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
             double finalI1 = i;

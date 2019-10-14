@@ -2,6 +2,9 @@ package Elevator;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,12 @@ public class InteriorButtons extends Buttons {
         List<Button> floorsButtons = new ArrayList<Button>();
         for(double i = floorsCount-1; i>=0; i--){
             Button tempButton = new Button(String.valueOf(Math.round(i)));
-            tempButton.setStyle("fx-radius-style: 50px");
+            tempButton.setShape(new Circle(10));
+            tempButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10.0), new BorderWidths(1.0))));
             tempButton.setId(String.valueOf(i));
             tempButton.setWrapText(true);
             double finalI = i;
             tempButton.setOnAction((ActionEvent event) -> {
-                System.out.println("monter: "+ finalI);
                 if(mode==0)
                     BasicProtocol.callFromInside(finalI);
                 //else

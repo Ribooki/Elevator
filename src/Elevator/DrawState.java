@@ -10,6 +10,7 @@ public class DrawState extends Drawer {
     }
 
     @Override
+    //Show state of elevator: -1 is going down, 0 is stop, is in moving up, 3 (up) / 4 (down) is breaking and 0 and 2 urgency stop
     public void draw(int state){
         lastState = state;
         gc.setFill(Color.BLACK);
@@ -17,26 +18,24 @@ public class DrawState extends Drawer {
         double dispWidth = width/6;
         gc.fillRect(midX-dispWidth,midY-dispHeight, dispWidth*2, dispHeight*2);
         gc.setStroke(Color.WHITE);
-        if(state == 1){
+        if(state == 1 || state == 3){
             gc.setFill(Color.RED);
             gc.fillPolygon(new double[]{midX, midX-dispWidth+2, midX+dispWidth-2}, new double[]{midY-dispHeight+2, midY-dispHeight+20, midY-dispHeight+20},3);
         }
         gc.strokePolygon(new double[]{midX, midX-dispWidth+2, midX+dispWidth-2}, new double[]{midY-dispHeight+2, midY-dispHeight+20, midY-dispHeight+20},3);
         gc.setFill(Color.BLACK);
 
-        if(state == -1){
+        if(state == -1 || state == 4){
             gc.setFill(Color.RED);
             gc.fillPolygon(new double[]{midX, midX-dispWidth+2, midX+dispWidth-2}, new double[]{midY+dispHeight-2, midY+dispHeight-20, midY+dispHeight-20},3);
         }
         gc.strokePolygon(new double[]{midX, midX-dispWidth+2, midX+dispWidth-2}, new double[]{midY+dispHeight-2, midY+dispHeight-20, midY+dispHeight-20},3);
         gc.setFill(Color.BLACK);
 
-        //TODO bysare
-        //Show state of elevator: 1 is in moving, 3 is breaking and 0 and 2 are for stop and urgency stop
-        if(state == 1){
+        if(state == 1 || state == -1){
             gc.setFill(Color.GREEN);
             gc.fillRect(midX-dispWidth/2, midY-dispHeight/2, dispWidth, dispHeight);
-        } else  if(state == 3){
+        } else  if(state == 3 || state == 4){
             gc.setFill(Color.ORANGE);
             gc.fillRect(midX-dispWidth/2, midY-dispHeight/2, dispWidth, dispHeight);
         }else{

@@ -29,8 +29,8 @@ public class App extends Application {
 
         //pos of windows
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth()/4);
-        primaryStage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight()/4);
+        primaryStage.setX((primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth()-primaryStage.getWidth())/2);
+        primaryStage.setY((primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight()-primaryStage.getHeight())/4);
 
         MainInterface mainInterface = new MainInterface(root);
         List<VBox> vBoxs = new ArrayList<VBox>();
