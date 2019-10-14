@@ -8,6 +8,17 @@ public class BasicProtocol extends Thread{
         synchronized (waitingCalls) {
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
+                if(elevator.getState() == 5){
+                    if(floor > elevator.getActualFloor()){
+                        ascend();
+                    }
+                    else if(floor < elevator.getActualFloor()){
+                        goDown();
+                    }
+                    else{
+                        stopElevator();
+                    }
+                }
             } else {
                 System.out.println("Un appel depuis cet étage est dégà enregistré.");
             }
@@ -58,9 +69,8 @@ public class BasicProtocol extends Thread{
 
     public synchronized static void emergencyStop() {
         if(elevator.getState() == 2){
-            elevator.setState(0);
+            elevator.setState(5);
             clearWaitingCalls();
-            stopNextFloor();
             System.out.println("L'ascenseur sort de l'arrêt urgence");
         }
         else{
@@ -98,7 +108,7 @@ public class BasicProtocol extends Thread{
     public void stopThisFloor(){
         if((elevator.getActualFloor() % 1) == 0){
             int k = (int) elevator.getActualFloor();
-            if(elevator.getState() < 2){
+            if(elevator.getState() != 2){
                 synchronized (waitingCalls) {
                     if (elevator.getState() != 0 && waitingCalls[k] == elevator.getState()) {
                         stopHere(k);
@@ -178,19 +188,13 @@ public class BasicProtocol extends Thread{
                 //Do nothing when emergency stop
                 break;
             case 3:
-                if(!isUpperStop()){
-                    if(isLowerStop())
-                        goDown();
-                    else
-                        stopElevator();
+                if(!isUpperStop() && !isLowerStop()){
+                    stopElevator();
                 }
                 break;
             case 4:
-                if(!isLowerStop()){
-                    if(isUpperStop())
-                        ascend();
-                    else
-                        stopElevator();
+                if(!isLowerStop() && !isUpperStop()){
+                    stopElevator();
                 }
                 break;
             default:
