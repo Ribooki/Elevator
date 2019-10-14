@@ -95,22 +95,38 @@ public class BasicProtocol extends Thread{
             if(elevator.getState() != 2){
                 synchronized (waitingCalls) {
                     if (elevator.getState() != 0 && waitingCalls[k] == elevator.getState()) {
-                        waitingCalls[k] = 0;
-                        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        stopHere(k);
+                    }
+                    else if(elevator.getState() == -1 && !isLowerStop()){
+                        if (waitingCalls[k] == 1){
+                            stopHere(k);
+                        }
+                    }
+                    else if(elevator.getState() == 1 && !isUpperStop()){
+                        if (waitingCalls[k] == -1){
+                            stopHere(k);
                         }
                     }
                 }
             }
+            updateDirection();
+        }
+    }
+
+    private void stopHere(int k){
+        waitingCalls[k] = 0;
+        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
+        updateDirection();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
     private boolean isLowerStop(){
         synchronized (waitingCalls) {
-            for (int i = (int) elevator.getActualFloor(); i >= 0; i--) {
+            for (int i = (int) elevator.getActualFloor()-1; i >= 0; i--) {
                 if (waitingCalls[i] != 0)
                     return true;
             }
@@ -182,7 +198,6 @@ public class BasicProtocol extends Thread{
         }
         while (true) {
             stopThisFloor();
-            updateDirection();
             switch (elevator.getState()) {
                 case -1: //goDown
                     elevator.previousStep();
@@ -228,7 +243,6 @@ public class BasicProtocol extends Thread{
                     break;
             }
             stopThisFloor();
-            updateDirection();
         }
     }
 
