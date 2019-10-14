@@ -35,8 +35,22 @@ public class BasicProtocol extends Thread{
 
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
-            } else {
                 System.out.println("Un appel vers l'étage " + floor + " est émis.");
+            } else {
+                System.out.println("Un appel vers l'étage " + floor + " déjà été émis.");
+            }
+
+
+            if(elevator.getState() == 5){
+                if(floor > elevator.getActualFloor()){
+                    ascend();
+                }
+                else if(floor < elevator.getActualFloor()){
+                    goDown();
+                }
+                else{
+                    stopElevator();
+                }
             }
         }
     }
