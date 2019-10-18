@@ -1,5 +1,6 @@
 package Elevator;
 
+import Elevator.Controller.BasicProtocol;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;

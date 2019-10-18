@@ -1,7 +1,7 @@
 package Elevator.Button;
 
-import Elevator.BasicProtocol;
-import Elevator.FIFOprotocol;
+import Elevator.Controller.BasicProtocol;
+import Elevator.Controller.FIFOprotocol;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

@@ -1,4 +1,7 @@
-package Elevator;
+package Elevator.Controller;
+
+import Elevator.Elevator;
+import Elevator.MainWindow;
 
 import java.util.LinkedList;
 
@@ -43,12 +46,12 @@ public class FIFOprotocol extends Thread{
         }
     }
 
-    public synchronized static void testAscend(){
+    public static synchronized void testAscend(){
         clearWaitingCalls();
         callFrom(9.0, -1);
     }
 
-    public synchronized static void testGoDown(){
+    public static synchronized void testGoDown(){
         clearWaitingCalls();
         callFrom(0.0, 1);
 

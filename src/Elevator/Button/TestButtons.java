@@ -1,7 +1,7 @@
 package Elevator.Button;
 
-import Elevator.BasicProtocol;
-import Elevator.FIFOprotocol;
+import Elevator.Controller.BasicProtocol;
+import Elevator.Controller.FIFOprotocol;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
@@ -54,10 +54,10 @@ public class TestButtons extends Buttons {
 
         tempButton = new Button("Switch mode");
         tempButton.setOnAction((ActionEvent event) -> {
-//            if(mode==0)TODO
-//                mode=1;
-//            else
-//                mode=0;
+            if(mode==0)
+                mode=1;
+            else
+                mode=0;
             System.out.println("L'ascenseur switch de mode entre FIFO, Round robin...");
         });
         testButtons.add(tempButton);

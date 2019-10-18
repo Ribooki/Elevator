@@ -1,4 +1,7 @@
-package Elevator;
+package Elevator.Controller;
+
+import Elevator.Elevator;
+import Elevator.MainWindow;
 
 public class BasicProtocol extends Thread{
     private volatile static Elevator elevator = new Elevator(10);
@@ -25,7 +28,7 @@ public class BasicProtocol extends Thread{
         }
     }
 
-    public synchronized static void callFromInside(double floor){
+    public static synchronized void callFromInside(double floor){
         synchronized (waitingCalls){
             int direction = 0;
             if(floor > elevator.getActualFloor())
@@ -63,7 +66,7 @@ public class BasicProtocol extends Thread{
         }
     }
 
-    public synchronized static void stopNextFloor() {
+    public static synchronized void stopNextFloor() {
         double k = 0;
         if (elevator.getState() == 1 && elevator.getActualFloor()<(elevator.getMaxFloor()-1)) {
             k = (int) elevator.getActualFloor() + 2;
@@ -81,7 +84,7 @@ public class BasicProtocol extends Thread{
         callFrom(k, elevator.getState());
     }
 
-    public synchronized static void emergencyStop() {
+    public static synchronized void emergencyStop() {
         if(elevator.getState() == 2){
             elevator.setState(5);
             clearWaitingCalls();
@@ -93,33 +96,33 @@ public class BasicProtocol extends Thread{
         }
     }
 
-    public synchronized static void testAscend(){
+    public static synchronized void testAscend(){
         clearWaitingCalls();
         callFrom(9.0, -1);
     }
 
-    public synchronized static void testGoDown(){
+    public static synchronized void testGoDown(){
         clearWaitingCalls();
         callFrom(0.0, 1);
 
     }
 
-    public synchronized static void ascend(){
+    private static synchronized void ascend(){
         elevator.setState(1);
         System.out.println("L'ascenseur monte");
     }
 
-    public synchronized static void goDown(){
+    private static synchronized void goDown(){
         elevator.setState(-1);
         System.out.println("L'ascenseur descend");
     }
 
-    public synchronized static void stopElevator(){
+    private static synchronized void stopElevator(){
         elevator.setState(0);
         System.out.println("L'ascenseur s'arrête");
     }
 
-    public void stopThisFloor(){
+    private static void stopThisFloor(){
         if((elevator.getActualFloor() % 1) == 0){
             int k = (int) elevator.getActualFloor();
             if(elevator.getState() != 2){
@@ -143,7 +146,7 @@ public class BasicProtocol extends Thread{
         }
     }
 
-    private void stopHere(int k){
+    private static void stopHere(int k){
         waitingCalls[k] = 0;
         System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
         updateDirection();
@@ -154,7 +157,7 @@ public class BasicProtocol extends Thread{
         }
     }
 
-    private boolean isLowerStop(){
+    private static boolean isLowerStop(){
         synchronized (waitingCalls) {
             for (int i = (int) elevator.getActualFloor()-1; i >= 0; i--) {
                 if (waitingCalls[i] != 0)
@@ -164,7 +167,7 @@ public class BasicProtocol extends Thread{
         return false;
     }
 
-    private boolean isUpperStop(){
+    private static boolean isUpperStop(){
         synchronized (waitingCalls) {
             for (int i = (int) elevator.getActualFloor()+1; i < elevator.getMaxFloor(); i++) {
                 if (waitingCalls[i] != 0)
@@ -174,7 +177,7 @@ public class BasicProtocol extends Thread{
         return false;
     }
 
-    private void updateDirection(){
+    private static void updateDirection(){
         switch (elevator.getState()){
             case -1:
                 if(!isLowerStop()){
