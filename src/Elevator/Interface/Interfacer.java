@@ -18,4 +18,6 @@ public abstract class Interfacer {
     public ScrollPane setInterface(){
         return container;
     }
+
+    public void updateInterface(int floor){}
 }

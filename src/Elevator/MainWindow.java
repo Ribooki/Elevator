@@ -20,10 +20,9 @@ public class MainWindow {
         boxes.add(new CanvasBox("in and out elevator",1));
         boxes.add(new InterfaceBox("out of elevator",1));
         ((CanvasBox) boxes.get(0)).getDrawer().draw(0.0);
-        //((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
         ((CanvasBox) boxes.get(2)).getDrawer().draw(0);
-        //((ButtonsBox)boxes.get(3)).setFloorButtons();
-
+        ((InterfaceBox)boxes.get(1)).getInterfacePanel().updateInterface((int)Math.round(0));
+        ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface((int)Math.round(0));
         resizeBoxes(root.getWidth(), root.getMinHeight());
         root.widthProperty().addListener((arg0, arg1, arg2) -> {
             root.setMinWidth(arg2.doubleValue());
@@ -40,12 +39,11 @@ public class MainWindow {
 
     public static void updateElevatorFloor(double floor){
         ((CanvasBox) boxes.get(0)).getDrawer().draw(floor);
-        //((ButtonsBox)boxes.get(1)).setFloorInteriorChoice();
+        ((InterfaceBox)boxes.get(1)).getInterfacePanel().updateInterface((int)Math.round(floor));
+        ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface((int)Math.round(floor));
     }
 
     public static void updateElevatorState(int state){((CanvasBox) boxes.get(2)).getDrawer().draw(state);}
-
-
 
     public List<AbstractBox> getBoxes() {
         return boxes;

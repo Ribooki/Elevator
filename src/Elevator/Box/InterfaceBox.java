@@ -23,7 +23,7 @@ public class InterfaceBox extends AbstractBox {
     }
 
 
-
-
-
+    public Interfacer getInterfacePanel() {
+        return interfacePanel;
+    }
 }
