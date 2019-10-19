@@ -54,11 +54,17 @@ public class TestButtons extends Buttons {
 
         tempButton = new Button("Switch mode");
         tempButton.setOnAction((ActionEvent event) -> {
-            if(mode==0)
-                mode=1;
-            else
-                mode=0;
-            System.out.println("L'ascenseur switch de mode entre FIFO, Round robin... " + mode);
+            if(mode==0) {
+                mode = 1;
+                BasicProtocol.setActive(false);
+                FIFOprotocol.setActive(true);
+            }
+            else {
+                mode = 0;
+                BasicProtocol.setActive(true);
+                FIFOprotocol.setActive(false);
+            }
+            System.out.println("L'ascenseur switch de mode entre basique(0) et FIFO(1) : " + mode);
         });
         testButtons.add(tempButton);
         return testButtons;

@@ -61,9 +61,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         BasicProtocol basicProtocol = new BasicProtocol();
-//        FIFOprotocol fifoProtocol = new FIFOprotocol();
+        FIFOprotocol fifoProtocol = new FIFOprotocol();
         basicProtocol.start();
-//        fifoProtocol.start();
+        fifoProtocol.start();
 
         launch(args);
     }

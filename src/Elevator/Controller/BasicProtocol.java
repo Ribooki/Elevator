@@ -1,5 +1,6 @@
 package Elevator.Controller;
 
+import Elevator.Button.Buttons;
 import Elevator.Elevator;
 import Elevator.MainWindow;
 
@@ -7,6 +8,15 @@ public class BasicProtocol extends Thread{
     private volatile static Elevator elevator = new Elevator(10);
     private volatile static double[] waitingCalls = new double[elevator.getMaxFloor()];
     private volatile static int[] waitingCallsInOut = new int[elevator.getMaxFloor()]; //0-no call,-1-call down out, 1-call up out, 2-call in
+    private volatile static boolean active = true;
+
+    public static void setActive(boolean active) {
+        BasicProtocol.active = active;
+        if(active) {
+            updateDirection();
+            MainWindow.updateElevatorFloor(elevator.getActualFloor());
+        }
+    }
 
     public static int[] getWaitingCallsInOut() {
         return waitingCallsInOut;
@@ -234,52 +244,54 @@ public class BasicProtocol extends Thread{
             clearWaitingCalls();
         }
         while (true) {
-            stopThisFloor();
-            switch (elevator.getState()) {
-                case -1: //goDown
-                    elevator.previousStep();
-                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 0: //stop
-                    break;
-                case 1: // goUp
-                    elevator.nextStep();
-                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2: // emergencyStop
-                    break;
-                case 3: // upBraking
-                    elevator.nextStep();
-                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
-                    try {
-                        Thread.sleep(400);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 4: // downBraking
-                    elevator.previousStep();
-                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
-                    try {
-                        Thread.sleep(400);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    break;
+            if(active) {
+                stopThisFloor();
+                switch (elevator.getState()) {
+                    case -1: //goDown
+                        elevator.previousStep();
+                        MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 0: //stop
+                        break;
+                    case 1: // goUp
+                        elevator.nextStep();
+                        MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 2: // emergencyStop
+                        break;
+                    case 3: // upBraking
+                        elevator.nextStep();
+                        MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                        try {
+                            Thread.sleep(400);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 4: // downBraking
+                        elevator.previousStep();
+                        MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                        try {
+                            Thread.sleep(400);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                stopThisFloor();
             }
-            stopThisFloor();
         }
     }
 
