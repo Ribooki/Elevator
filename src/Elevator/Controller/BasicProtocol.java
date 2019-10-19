@@ -6,11 +6,17 @@ import Elevator.MainWindow;
 public class BasicProtocol extends Thread{
     private volatile static Elevator elevator = new Elevator(10);
     private volatile static double[] waitingCalls = new double[elevator.getMaxFloor()];
+    private volatile static int[] waitingCallsInOut = new int[elevator.getMaxFloor()]; //0-no call,-1-call down out, 1-call up out, 2-call in
+
+    public static int[] getWaitingCallsInOut() {
+        return waitingCallsInOut;
+    }
 
     public static void callFrom(double floor, int direction) {
         synchronized (waitingCalls) {
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
+                waitingCallsInOut[(int) floor]=direction;
                 if(elevator.getState() == 5){
                     if(floor > elevator.getActualFloor()){
                         ascend();
@@ -38,6 +44,8 @@ public class BasicProtocol extends Thread{
 
             if (waitingCalls[(int) floor] == 0) {
                 waitingCalls[(int) floor] = direction;
+                if(direction != 0)
+                    waitingCallsInOut[(int) floor] = 2;
                 System.out.println("Un appel vers l'étage " + floor + " est émis.");
             } else {
                 System.out.println("Un appel vers l'étage " + floor + " déjà été émis.");
@@ -62,6 +70,7 @@ public class BasicProtocol extends Thread{
         synchronized (waitingCalls) {
             for (int i = 0; i < elevator.getMaxFloor(); i++) {
                 waitingCalls[i] = 0;
+                waitingCallsInOut[i]=0;
             }
         }
     }
@@ -148,6 +157,7 @@ public class BasicProtocol extends Thread{
 
     private static void stopHere(int k){
         waitingCalls[k] = 0;
+        waitingCallsInOut[k]=0;
         System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
         updateDirection();
         try {
