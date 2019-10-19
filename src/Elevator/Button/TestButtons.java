@@ -58,7 +58,7 @@ public class TestButtons extends Buttons {
                 mode=1;
             else
                 mode=0;
-            System.out.println("L'ascenseur switch de mode entre FIFO, Round robin...");
+            System.out.println("L'ascenseur switch de mode entre FIFO, Round robin... " + mode);
         });
         testButtons.add(tempButton);
         return testButtons;

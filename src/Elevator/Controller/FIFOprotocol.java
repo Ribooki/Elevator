@@ -72,32 +72,45 @@ public class FIFOprotocol extends Thread{
         System.out.println("L'ascenseur s'arrête");
     }
 
-    private void updateDirection(){
-        if(elevator.getState() != 2 && elevator.getState() != 0){
+    private static void updateDirection(){
+        if(elevator.getState() != 2 && waitingCalls.size() != 0){
             if(waitingCalls.getFirst() > elevator.getActualFloor()){
                 ascend();
             }
             else if(waitingCalls.getFirst() < elevator.getActualFloor()){
                 goDown();
             }
+            else{
+                stopElevator();
+            }
+        }
+        else if(elevator.getState() != 2 && elevator.getState() != 0){
+            stopElevator();
         }
     }
 
-    private void update(){
-        synchronized (waitingCalls) {
-            if (!waitingCalls.isEmpty() && elevator.getActualFloor() == waitingCalls.getFirst()) {
-                waitingCalls.removeFirst();
-                System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if(waitingCalls.isEmpty()){
-                    stopElevator();
+    private static void stopThisFloor(){
+        if((elevator.getActualFloor() % 1) == 0){
+            int k = (int) elevator.getActualFloor();
+            if(elevator.getState() != 2){
+                synchronized (waitingCalls) {
+                    if (elevator.getState() != 0 && waitingCalls.getFirst() == elevator.getState()) {
+                        stopHere();
+                    }
                 }
             }
             updateDirection();
+        }
+    }
+
+    private static void stopHere(){
+        waitingCalls.removeFirst();
+        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
+        updateDirection();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -106,9 +119,9 @@ public class FIFOprotocol extends Thread{
             clearWaitingCalls();
         }
         while (true) {
-            update();
+            stopThisFloor();
             switch (elevator.getState()) {
-                case -1:
+                case -1: //goDown
                     elevator.previousStep();
                     MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
@@ -117,9 +130,9 @@ public class FIFOprotocol extends Thread{
                         e.printStackTrace();
                     }
                     break;
-                case 0:
+                case 0: //stop
                     break;
-                case 1:
+                case 1: // goUp
                     elevator.nextStep();
                     MainWindow.updateElevatorFloor(elevator.getActualFloor());
                     try {
@@ -128,11 +141,30 @@ public class FIFOprotocol extends Thread{
                         e.printStackTrace();
                     }
                     break;
-                case 2:
+                case 2: // emergencyStop
+                    break;
+                case 3: // upBraking
+                    elevator.nextStep();
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 4: // downBraking
+                    elevator.previousStep();
+                    MainWindow.updateElevatorFloor(elevator.getActualFloor());
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     break;
             }
+            stopThisFloor();
         }
     }
 

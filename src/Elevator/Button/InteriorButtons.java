@@ -29,8 +29,8 @@ public class InteriorButtons extends Buttons {
             tempButton.setOnAction((ActionEvent event) -> {
                 if(mode==0)
                     BasicProtocol.callFromInside(finalI);
-                //else
-                //FIFOprotocol.callFromInside(finalI, 1);
+                else
+                    FIFOprotocol.callFrom(finalI, 1);
             });
             floorsButtons.add(tempButton);
         }

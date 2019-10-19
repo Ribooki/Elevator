@@ -1,6 +1,7 @@
 package Elevator;
 
 import Elevator.Controller.BasicProtocol;
+import Elevator.Controller.FIFOprotocol;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -59,9 +60,10 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-        BasicProtocol protocol = new BasicProtocol();
-//        FIFOprotocol protocol = new FIFOprotocol();
-        protocol.start();
+        BasicProtocol basicProtocol = new BasicProtocol();
+//        FIFOprotocol fifoProtocol = new FIFOprotocol();
+        basicProtocol.start();
+//        fifoProtocol.start();
 
         launch(args);
     }
