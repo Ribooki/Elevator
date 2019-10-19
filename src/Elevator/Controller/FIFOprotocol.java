@@ -27,7 +27,7 @@ public class FIFOprotocol extends Thread{
             if (!waitingCalls.contains(floor)) {
                 waitingCalls.add(floor);
             } else {
-                System.out.println("Un appel depuis cet étage est dégà enregistré.");
+                System.out.println("call from floor " + floor + " already received");
             }
         }
     }
@@ -72,17 +72,17 @@ public class FIFOprotocol extends Thread{
 
     public synchronized static void ascend(){
         elevator.setState(1);
-        System.out.println("L'ascenseur monte");
+        System.out.println("The Elevator go up");
     }
 
     public synchronized static void goDown(){
         elevator.setState(-1);
-        System.out.println("L'ascenseur descend");
+        System.out.println("The Elevator go down");
     }
 
     public synchronized static void stopElevator(){
         elevator.setState(0);
-        System.out.println("L'ascenseur s'arrête");
+        System.out.println("The Elevator stop");
     }
 
     private static void updateDirection(){
@@ -118,7 +118,7 @@ public class FIFOprotocol extends Thread{
 
     private static void stopHere(){
         waitingCalls.removeFirst();
-        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
+        System.out.println("Stop to floor " + (int)elevator.getActualFloor() + " (2s)");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

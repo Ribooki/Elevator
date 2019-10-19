@@ -1,6 +1,5 @@
 package Elevator.Box;
 
-import Elevator.Elevator;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -39,8 +38,6 @@ public abstract class AbstractBox {
     protected void setHeight(double newHeight){
         height = newHeight;
     }
-
-    public void update(){}
 
     public VBox getvBox() {
         return vBox;

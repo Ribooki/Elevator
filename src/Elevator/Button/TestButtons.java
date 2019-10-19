@@ -39,11 +39,11 @@ public class TestButtons extends Buttons {
                 BasicProtocol.stopNextFloor();
             else
                 FIFOprotocol.stopNextFloor();
-            System.out.println("L'ascenseur s'arretera au prochain étage");
+            System.out.println("Elevator will stop at the next floor");
         });
         testButtons.add(tempButton);
 
-        tempButton = new Button("Urgency stop");
+        tempButton = new Button("Emergency stop");
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0)
                 BasicProtocol.emergencyStop();
@@ -56,24 +56,24 @@ public class TestButtons extends Buttons {
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0) {
                 if (!BasicProtocol.isOnFloor()){
-                    System.out.println("L'ascenceur doit être à l'arrêt à un étage pour changer de mode.");
+                    System.out.println("The elevator have to be stopped to switch mode.");
                 }
                 else {
                     mode = 1;
                     BasicProtocol.setActive(false);
                     FIFOprotocol.setActive(true);
-                    System.out.println("L'ascenseur switch en mode FIFO");
+                    System.out.println("Switch FIFO mode");
                 }
             }
             else {
                 if(!FIFOprotocol.isOnFloor()){
-                    System.out.println("L'ascenceur doit être à l'arrêt à un étage pour changer de mode.");
+                    System.out.println("The elevator have to be stopped to switch mode.");
                 }
                 else{
                     mode = 0;
                     BasicProtocol.setActive(true);
                     FIFOprotocol.setActive(false);
-                    System.out.println("L'ascenseur switch en mode basique");
+                    System.out.println("Switch Basic mode");
                 }
             }
         });

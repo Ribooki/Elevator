@@ -14,15 +14,15 @@ public class MainWindow {
     public MainWindow(HBox root){
 
         MainWindow.maxFloor = 10;
-        boxes = new ArrayList<AbstractBox>();
+        boxes = new ArrayList<>();
         boxes.add(new CanvasBox("Elevator",0));
-        boxes.add(new InterfaceBox("In elevator",0));
-        boxes.add(new CanvasBox("in and out elevator",1));
-        boxes.add(new InterfaceBox("out of elevator",1));
+        boxes.add(new InterfaceBox("Indoor elevator",0));
+        boxes.add(new CanvasBox("Indoor and outdoor elevator",1));
+        boxes.add(new InterfaceBox("Outdoor of elevator",1));
         ((CanvasBox) boxes.get(0)).getDrawer().draw(0.0);
         ((CanvasBox) boxes.get(2)).getDrawer().draw(0);
-        ((InterfaceBox)boxes.get(1)).getInterfacePanel().updateInterface((int)Math.round(0));
-        ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface((int)Math.round(0));
+        ((InterfaceBox)boxes.get(1)).getInterfacePanel().updateInterface(Math.round(0));
+        ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface(Math.round(0));
         resizeBoxes(root.getWidth(), root.getMinHeight());
         root.widthProperty().addListener((arg0, arg1, arg2) -> {
             root.setMinWidth(arg2.doubleValue());

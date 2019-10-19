@@ -20,7 +20,7 @@ public class ExteriorButtons extends Buttons {
             tempButton.setWrapText(true);
             double finalI = i;
             tempButton.setOnAction((ActionEvent event) -> {
-                System.out.println("monter: "+ finalI);
+                System.out.println("Go upper ext call: "+ finalI);
                 if(mode==0)
                     BasicProtocol.callFrom(finalI, 1);
                 else
@@ -33,7 +33,7 @@ public class ExteriorButtons extends Buttons {
             tempButton.setWrapText(true);
             double finalI1 = i;
             tempButton.setOnAction((ActionEvent event) -> {
-                System.out.println("descendre: "+ finalI1);
+                System.out.println("Go lower ext call: "+ finalI1);
                 if(mode==0)
                     BasicProtocol.callFrom(finalI, -1);
                 else

@@ -44,7 +44,7 @@ public class BasicProtocol extends Thread{
                 }
                 MainWindow.updateOutdoorInterface();
             } else {
-                System.out.println("Un appel depuis cet étage est dégà enregistré.");
+                System.out.println("Call already saved for this floor");
             }
         }
     }
@@ -61,10 +61,10 @@ public class BasicProtocol extends Thread{
                 waitingCalls[(int) floor] = direction;
                 if(direction != 0)
                     waitingCallsInOut[(int) floor] = 2;
-                System.out.println("Un appel vers l'étage " + floor + " est émis.");
+                System.out.println("call from floor: " + floor + " received");
                 MainWindow.updateIndoorInterface();
             } else {
-                System.out.println("Un appel vers l'étage " + floor + " déjà été émis.");
+                System.out.println("call from floor " + floor + " already received");
             }
 
 
@@ -113,11 +113,11 @@ public class BasicProtocol extends Thread{
         if(elevator.getState() == 2){
             elevator.setState(5);
             clearWaitingCalls();
-            System.out.println("L'ascenseur sort de l'arrêt urgence");
+            System.out.println("The elevator exits the emergency stop");
         }
         else{
             elevator.setState(2);
-            System.out.println("L'ascenseur s'arrête en urgence");
+            System.out.println("The elevator stops in emergency");
         }
     }
 
@@ -134,17 +134,17 @@ public class BasicProtocol extends Thread{
 
     private static synchronized void ascend(){
         elevator.setState(1);
-        System.out.println("L'ascenseur monte");
+        System.out.println("The elevator go up");
     }
 
     private static synchronized void goDown(){
         elevator.setState(-1);
-        System.out.println("L'ascenseur descend");
+        System.out.println("The elevator go down");
     }
 
     private static synchronized void stopElevator(){
         elevator.setState(0);
-        System.out.println("L'ascenseur s'arrête");
+        System.out.println("The elevator stop");
     }
 
     private static void stopThisFloor(){
@@ -174,7 +174,7 @@ public class BasicProtocol extends Thread{
     private static void stopHere(int k){
         waitingCalls[k] = 0;
         waitingCallsInOut[k]=0;
-        System.out.println("Arrêt à l'étage " + (int)elevator.getActualFloor() + " (2s)");
+        System.out.println("Stop to floor " + (int)elevator.getActualFloor() + " (2s)");
         updateDirection();
         try {
             Thread.sleep(2000);

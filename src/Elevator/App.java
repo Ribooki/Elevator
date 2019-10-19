@@ -17,7 +17,7 @@ public class App extends Application {
     private Scene mainScene;
     private Stage testStage;
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
 
         //primary windows
         final HBox root = new HBox();

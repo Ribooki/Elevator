@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 public class TestWindow {
     private InterfaceBox interfaceBox;
     public TestWindow(HBox root){
-        interfaceBox = new InterfaceBox("Test", 2);
+        interfaceBox = new InterfaceBox("Test interface", 2);
         resizeBox(root.getWidth(), root.getHeight());
         root.widthProperty().addListener((arg0, arg1, arg2) -> {
             root.setMinWidth(arg2.doubleValue());

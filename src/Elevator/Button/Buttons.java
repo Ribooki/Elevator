@@ -6,13 +6,7 @@ import java.util.List;
 public abstract class Buttons {
     protected static int mode = 0; //0-Basic, 1-FIFO
 
-    public Buttons(){
-
-    }
-
-    public static int getMode() {
-        return mode;
-    }
+    public Buttons(){}
 
     public List<Button> setButtons(int floorCount){
         return null;
