@@ -18,6 +18,10 @@ public class FIFOprotocol extends Thread{
         }
     }
 
+    public static boolean isOnFloor(){
+        return (elevator.getActualFloor()%1 == 0);
+    }
+
     public static void callFrom(double floor, int direction) {
         synchronized (waitingCalls) {
             if (!waitingCalls.contains(floor)) {

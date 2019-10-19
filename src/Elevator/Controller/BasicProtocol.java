@@ -18,6 +18,10 @@ public class BasicProtocol extends Thread{
         }
     }
 
+    public static boolean isOnFloor(){
+        return (elevator.getActualFloor()%1 == 0);
+    }
+
     public static int[] getWaitingCallsInOut() {
         return waitingCallsInOut;
     }

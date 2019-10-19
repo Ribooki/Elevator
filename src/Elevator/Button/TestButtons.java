@@ -55,16 +55,27 @@ public class TestButtons extends Buttons {
         tempButton = new Button("Switch mode");
         tempButton.setOnAction((ActionEvent event) -> {
             if(mode==0) {
-                mode = 1;
-                BasicProtocol.setActive(false);
-                FIFOprotocol.setActive(true);
+                if (!BasicProtocol.isOnFloor()){
+                    System.out.println("L'ascenceur doit être à l'arrêt à un étage pour changer de mode.");
+                }
+                else {
+                    mode = 1;
+                    BasicProtocol.setActive(false);
+                    FIFOprotocol.setActive(true);
+                    System.out.println("L'ascenseur switch en mode FIFO");
+                }
             }
             else {
-                mode = 0;
-                BasicProtocol.setActive(true);
-                FIFOprotocol.setActive(false);
+                if(!FIFOprotocol.isOnFloor()){
+                    System.out.println("L'ascenceur doit être à l'arrêt à un étage pour changer de mode.");
+                }
+                else{
+                    mode = 0;
+                    BasicProtocol.setActive(true);
+                    FIFOprotocol.setActive(false);
+                    System.out.println("L'ascenseur switch en mode basique");
+                }
             }
-            System.out.println("L'ascenseur switch de mode entre basique(0) et FIFO(1) : " + mode);
         });
         testButtons.add(tempButton);
         return testButtons;
