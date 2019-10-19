@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Elevator.Controller.BasicProtocol.getWaitingCallsInOut;
+
 public class InteriorInterface extends Interfacer{
     private List<Button> buttons;
     private int currentFloor = -1;
@@ -39,6 +41,18 @@ public class InteriorInterface extends Interfacer{
 
     public void updateInterface(int floor){
         Button tempButton;
+        if(floor == -1) {
+            floor = currentFloor;
+        }
+        int waitingCalls[] = getWaitingCallsInOut();
+        for(int i=0; i<waitingCalls.length; i++){
+            tempButton = buttons.get(MainWindow.maxFloor-i-1);
+            if(waitingCalls[i] != 0){
+                tempButton.setTextFill(Color.RED);
+            }else{
+                tempButton.setTextFill(Color.BLACK);
+            }
+        }
         if(floor == currentFloor) return;
         if(currentFloor == -1) currentFloor =0;
         for(int i=0; i<buttons.size(); i++){

@@ -42,6 +42,7 @@ public class BasicProtocol extends Thread{
                         stopElevator();
                     }
                 }
+                MainWindow.updateOutdoorInterface();
             } else {
                 System.out.println("Un appel depuis cet étage est dégà enregistré.");
             }
@@ -61,6 +62,7 @@ public class BasicProtocol extends Thread{
                 if(direction != 0)
                     waitingCallsInOut[(int) floor] = 2;
                 System.out.println("Un appel vers l'étage " + floor + " est émis.");
+                MainWindow.updateIndoorInterface();
             } else {
                 System.out.println("Un appel vers l'étage " + floor + " déjà été émis.");
             }

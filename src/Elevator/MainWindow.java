@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MainWindow {
     private static List<AbstractBox> boxes;
-    public static int maxFloor; //TODO Pour le bien de tous laissons le en static, il embete personne
+    public static int maxFloor;
     public MainWindow(HBox root){
 
         MainWindow.maxFloor = 10;
@@ -43,7 +43,17 @@ public class MainWindow {
         ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface((int)Math.round(floor));
     }
 
-    public static void updateElevatorState(int state){((CanvasBox) boxes.get(2)).getDrawer().draw(state);}
+    public static void updateElevatorState(int state){
+        ((CanvasBox) boxes.get(2)).getDrawer().draw(state);
+    }
+
+    public static void updateIndoorInterface(){
+        ((InterfaceBox)boxes.get(1)).getInterfacePanel().updateInterface(-1);
+    }
+
+    public static void updateOutdoorInterface(){
+        ((InterfaceBox)boxes.get(3)).getInterfacePanel().updateInterface(-1);
+    }
 
     public List<AbstractBox> getBoxes() {
         return boxes;

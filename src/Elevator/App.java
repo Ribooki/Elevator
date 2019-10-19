@@ -16,7 +16,6 @@ import java.util.List;
 public class App extends Application {
     private Scene mainScene;
     private Stage testStage;
-    private Scene testScene;
     @Override
     public void start(Stage primaryStage) throws Exception{
 
